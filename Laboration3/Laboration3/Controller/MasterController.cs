@@ -13,10 +13,12 @@ namespace Laboration3
     {
         Camera camera;
 
-        Explosion explosionManager;
+        Explosion explosion;
         BallView ballview;
         BallSimulation ballSimulation;
         float timeElapsed;
+
+        private MouseState oldMouseState;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -24,8 +26,8 @@ namespace Laboration3
         public MasterController()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.PreferredBackBufferWidth = 600;
+            graphics.PreferredBackBufferHeight = 1080/2;
+            graphics.PreferredBackBufferWidth = 1920/2;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -58,7 +60,7 @@ namespace Laboration3
             Texture2D masterBall = Content.Load<Texture2D>("master_ball");
 
             ballSimulation = new BallSimulation();
-            explosionManager = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion);
+            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion);
             ballview = new BallView(graphics, ballSimulation, Content, masterBall);
             // TODO: use this.Content to load your game content here
         }
@@ -79,20 +81,24 @@ namespace Laboration3
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            else if (Keyboard.GetState().IsKeyDown(Keys.Space))//som ett test!
+            MouseState newMouseState = Mouse.GetState();
+
+            if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                explosionManager.Reset((float)gameTime.ElapsedGameTime.TotalSeconds);
-                timeElapsed = 0;
+                Vector2 vec = new Vector2(newMouseState.X, newMouseState.Y);
+                explosion.Click(vec);
+                //timeElapsed = 0;
             }
+            oldMouseState = newMouseState;
+            
+            explosion.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
 
-            explosionManager.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
-
-            ballSimulation.update();
+           // ballSimulation.update();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -106,10 +112,10 @@ namespace Laboration3
         {
             GraphicsDevice.Clear(Color.Crimson);
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetMatrix());
-
-            ballview.Draw(spriteBatch);
-            explosionManager.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetMatrix());
+            spriteBatch.Begin();
+           // ballview.Draw(spriteBatch);
+            explosion.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             spriteBatch.End();
 

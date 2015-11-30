@@ -23,7 +23,7 @@ namespace Laboration3.View.ExplosionBang
             scale = 1f + (float)rand.NextDouble() * 5f;
             randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.10f) * 2f;// denna sätter snabheten på partiklarna!
             randomDirection.Normalize();
-            randomDirection = randomDirection * ((float)rand.NextDouble() * 1.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
+            randomDirection = randomDirection * ((float)rand.NextDouble() * 0.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
             this.seed = seed;
             this.systemStartPosition = systemStartPosition;
             position = new Vector2(systemStartPosition.X, systemStartPosition.Y);//sätter start positionen
@@ -32,16 +32,17 @@ namespace Laboration3.View.ExplosionBang
         }
         public void Update(float elapsedTimeInSeconds)//updaterar varje frame med en position
         {
-            position = position + velocity;
+            position = position + velocity * elapsedTimeInSeconds;
+            //position += velocity;
             velocity = velocity + acceleration * elapsedTimeInSeconds;
         }
         public void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)//ritar ut texturen med farten och en färg!
         {
             //spriteBatch.Draw(texture, camera.scaleParticles(position.X, position.Y), Color.White);
             //spriteBatch.Draw(texture, camera.convertToVisualCoords(new Vector2(position.X, position.Y)), null, Color.White, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);//denna skalar om mina partiklar!
-            spriteBatch.Draw(texture, position, null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), camera.scaleSizeTo(texture.Width,scale), SpriteEffects.None, 0f);//denna skalar om mina partiklar!
-            
+            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), camera.scaleSizeTo(texture.Width, scale)*2, SpriteEffects.None, 0f);//denna skalar om mina partiklar!
 
+            //camera.scaleSizeTo(texture.Width,scale)
         }
     }
 }

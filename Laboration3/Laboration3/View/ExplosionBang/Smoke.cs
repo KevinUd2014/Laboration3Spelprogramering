@@ -27,12 +27,12 @@ namespace Laboration3.View.ExplosionBang
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge, Camera camera)
         {
             sb.Draw(texture,
-                position,
+                camera.convertToVisualCoords(position),
                 null,
                 null,
                 new Vector2(texture.Width / 2f, texture.Height / 2f),
                 rotation,
-                camera.scaleSizeTo(texture.Width, 10f) * Vector2.One * scale * (age / maxAge),
+                camera.scaleSizeTo(texture.Width, 150f) * Vector2.One * scale * (age / maxAge),
                 Color.White * (1 - (age / maxAge)),
                 SpriteEffects.None,
                 0);

@@ -22,7 +22,7 @@ namespace Laboration3.View
         public float timeElapsed;
         public float maxTimer = 0.5f;
 
-        Vector2 startposition = new Vector2(50, 50);
+        Vector2 startposition = new Vector2(50, 50);// hela planen är just nu 100*100// så denna börjar i mitten 50*50
         ParticleSystem particleSystem;
         SmokeSystem smokeSystem;
         ExplosionManager explosionManager;
@@ -38,7 +38,6 @@ namespace Laboration3.View
             particle = Particle;
             bangExplosion = BangExplosion;
             smoke = Smoke;
-
             Width = particle.Width; // posFramesX; //delar explosionens bredd med positions framesen!
             Height = particle.Height; // posFramesY;
 
@@ -51,12 +50,23 @@ namespace Laboration3.View
         {
             smokeSystem.Update(totalseconds);
         }
-        public void Reset(float totalSeconds)
+        //public void Reset(float totalSeconds)
+        //{
+        //   // particleSystem = new ParticleSystem(startposition);
+        //    smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
+        //    explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, startposition);
+        //    timeElapsed = 0;
+        //}
+
+        public void Click(Vector2 mousePosition)
         {
-            particleSystem = new ParticleSystem(startposition);
-            smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
-            explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, startposition);
+            Vector2 logicalMousePosition = camera.convertToLogicalCoords(mousePosition.X, mousePosition.Y);
+
+            particleSystem = new ParticleSystem(logicalMousePosition);
+            smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera);//får inte denna att fungera
+            explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition);
             timeElapsed = 0;
+
         }
 
         public void Draw(float totalSeconds)
@@ -65,8 +75,8 @@ namespace Laboration3.View
 
             particleSystem.Update(totalSeconds);
             particleSystem.Draw(spriteBatch, camera, particle);
-            //ballview.Draw(spriteBatch);
 
+            //timeElapsed = 0;
             smokeSystem.Draw(spriteBatch);
             explosionManager.Draw(totalSeconds);
 

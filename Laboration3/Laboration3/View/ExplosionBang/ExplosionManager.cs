@@ -61,7 +61,7 @@ namespace Laboration3.View.ExplosionBang
 
             Rectangle rect = new Rectangle(frameWidth * frameX, frameHeight * frameY, frameWidth, frameHeight);// denna sätter storleken på hela bilden!
             
-            spriteBatch.Draw(texture, position, rect, Color.White, 0, new Vector2(frameWidth / 2, frameHeight / 2), camera.scaleSizeTo(frameWidth, 20f), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), rect, Color.White, 0, new Vector2(frameWidth / 2, frameHeight / 2), camera.scaleSizeTo(frameWidth, 60f*2), SpriteEffects.None, 0);
             
         }
     }

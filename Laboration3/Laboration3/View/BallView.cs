@@ -40,7 +40,7 @@ namespace Laboration3.View
                 camera.scaleSizeTo(box.Width, 90f),
                 SpriteEffects.None,
                 0f);/// ritar ut boxen eller snarare kvadraten!
-            spriteBatch.Draw(ball,
+                spriteBatch.Draw(ball,
                 ballSimulation.ball.position,
                 null, Color.White,
                 0f,
