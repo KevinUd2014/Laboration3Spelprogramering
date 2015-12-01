@@ -102,7 +102,7 @@ namespace Laboration3
             }
             oldMouseState = newMouseState;
 
-            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (timeElapsed <= (float)smokeSystem.maxLife / (float)smokeSystem.maxParticleCount)
             {

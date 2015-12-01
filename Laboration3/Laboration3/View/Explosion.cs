@@ -24,7 +24,7 @@ namespace Laboration3.View
         public float timeElapsed;
         public float maxTimer = 0.5f;
 
-        Vector2 startposition = new Vector2(0.50f, 0.50f);// hela planen är just nu 100*100// så denna börjar i mitten 50*50
+        Vector2 startposition = new Vector2(2f, 2f);// hela planen är just nu 100*100// så denna börjar i mitten 50*50
         ParticleSystem particleSystem;
         SmokeSystem smokeSystem;
         ExplosionManager explosionManager;
@@ -59,22 +59,8 @@ namespace Laboration3.View
             {
                 smokeSystem.Update(totalseconds);
             }
-
-            //foreach (ExplosionManager explosion in explosions)
-            //{
-
-                
-            //}
             particleSystem.Update(totalseconds / 1000);
         }
-        //public void Reset(float totalSeconds)
-        //{
-        //   // particleSystem = new ParticleSystem(startposition);
-        //    smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
-        //    explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, startposition);
-        //    timeElapsed = 0;
-        //}
-
         public void Click(Vector2 mousePosition)
         {
             Vector2 logicalMousePosition = camera.convertToLogicalCoords(mousePosition.X, mousePosition.Y);
@@ -83,11 +69,6 @@ namespace Laboration3.View
             smokes.Add(smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera));//får inte denna att fungera
             explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition, soundEffect));
             explosionManager.PlayExplosionSound();
-            //foreach (ParticleSystem Particle in particleSpark)
-            //{
-            //    //Particle.reset();             
-            //}
-            //timeElapsed = 0;
 
         }
 
@@ -103,8 +84,9 @@ namespace Laboration3.View
             {
                 smokeSystem.Draw(spriteBatch);
             }
-
             explosionManager.Draw(totalSeconds);
+
+            //explosionManager.Draw(totalSeconds);
         }
     }
 }
