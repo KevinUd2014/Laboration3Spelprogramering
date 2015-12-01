@@ -10,9 +10,9 @@ namespace Laboration3.View.ExplosionBang
     class SmokeSystem
     {
         private Smoke[] smoke;
-        private float maxLife;
+        public float maxLife;
 
-        private int maxParticleCount;
+        public int maxParticleCount;
         private int offset;
         //private int firstInLine;
 
@@ -30,7 +30,7 @@ namespace Laboration3.View.ExplosionBang
             smoke = new Smoke[maxParticleCount];//lägger in alla i en array med partiklar
             elapsedTime = 0;//den gångna tiden
             offset = 0;
-            maxLife = 7000;
+            maxLife = 6000;
             texture = Texture;
             r = new Random();
             startPos = new Vector2(startPosition.X, startPosition.Y);

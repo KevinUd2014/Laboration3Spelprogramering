@@ -1,6 +1,8 @@
 ﻿using Laboration3.Model;
 using Laboration3.View;
+using Laboration3.View.ExplosionBang;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,8 +15,10 @@ namespace Laboration3
     {
         Camera camera;
 
+        SmokeSystem smokeSystem;
         Explosion explosion;
         BallView ballview;
+        SoundEffect explosionSound;
         BallSimulation ballSimulation;
         float timeElapsed;
 
@@ -58,10 +62,12 @@ namespace Laboration3
             Texture2D spark = Content.Load<Texture2D>("spark");
             Texture2D bangExplosion = Content.Load<Texture2D>("explosion");
             Texture2D masterBall = Content.Load<Texture2D>("master_ball");
-
+            SoundEffect explosionSound = Content.Load<SoundEffect>("firesound");
+            Vector2 startPosition = new Vector2(0.5f, 0.5f);
             ballSimulation = new BallSimulation();
-            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion);
-            ballview = new BallView(graphics, ballSimulation, Content, masterBall);
+            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound);
+            smokeSystem = new SmokeSystem(smokee, startPosition, camera);
+            //ballview = new BallView(graphics, ballSimulation, Content, masterBall);
             // TODO: use this.Content to load your game content here
         }
 
@@ -95,8 +101,16 @@ namespace Laboration3
                 //timeElapsed = 0;
             }
             oldMouseState = newMouseState;
-            
-            explosion.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
+
+            timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (timeElapsed <= (float)smokeSystem.maxLife / (float)smokeSystem.maxParticleCount)
+            {
+                explosion.Update(timeElapsed*1000);
+                timeElapsed = 0;
+            }
+
+            //explosion.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
 
            // ballSimulation.update();
             // TODO: Add your update logic here

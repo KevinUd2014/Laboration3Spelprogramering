@@ -10,7 +10,7 @@ namespace Laboration3.View.ExplosionBang
     class Smoke
     {
         public Vector2 position;
-        public Vector2 velocity;
+        public Vector2 velocity; //= new Vector2(0.00f, -0.01f);
         public float rotation;
         public float rotationSpeed;
         public float age;
@@ -18,10 +18,10 @@ namespace Laboration3.View.ExplosionBang
 
         public void Update(float gameTime)
         {
-            velocity += new Vector2(0, -0.01f);
-            position += velocity;
+            velocity += new Vector2(0, -0.01f);//new Vector2(0, -0.01f);
+            position += velocity*gameTime/1000;//*gameTime / 500;
             rotation += rotationSpeed;
-            age += gameTime;//(float)//.ElapsedGameTime.TotalMilliseconds
+            age -= gameTime;//(float)//.ElapsedGameTime.TotalMilliseconds//denna sätter att smoken ska sluta!
         }
 
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge, Camera camera)
@@ -32,7 +32,7 @@ namespace Laboration3.View.ExplosionBang
                 null,
                 new Vector2(texture.Width / 2f, texture.Height / 2f),
                 rotation,
-                camera.scaleSizeTo(texture.Width, 150f) * Vector2.One * scale * (age / maxAge),
+                Vector2.One * scale * (age / maxAge)*2,//storleken på smoke är *3
                 Color.White * (1 - (age / maxAge)),
                 SpriteEffects.None,
                 0);
@@ -46,6 +46,7 @@ namespace Laboration3.View.ExplosionBang
             rotationSpeed = rs;
             scale = s;
             age = 0;
+
         }
     }
 }

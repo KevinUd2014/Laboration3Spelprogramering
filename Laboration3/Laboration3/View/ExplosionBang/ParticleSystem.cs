@@ -11,9 +11,11 @@ namespace Laboration3.View.ExplosionBang
     {
         private Particle[] particles;
         private const int maxParticles = 100;
+        Vector2 _systemModelStartPosition;
 
         public ParticleSystem(Vector2 systemModelStartPosition)
         {
+            _systemModelStartPosition = systemModelStartPosition;
             particles = new Particle[maxParticles];
             int i;
             for (i = 0; i < maxParticles; i++)
@@ -35,6 +37,14 @@ namespace Laboration3.View.ExplosionBang
             for (i = 0; i < maxParticles; i++)
             {
                 particles[i].Draw(spritebatch, camera, texture);
+            }
+        }
+
+        public void reset()
+        {
+            for (int i = 0; i < maxParticles; i++)
+            {
+                particles[i] = new Particle(i, _systemModelStartPosition);
             }
         }
     }

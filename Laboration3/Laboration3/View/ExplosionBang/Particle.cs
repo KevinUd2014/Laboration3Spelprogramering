@@ -13,6 +13,7 @@ namespace Laboration3.View.ExplosionBang
         private Vector2 systemStartPosition;
         private Vector2 position;
         private Vector2 velocity;
+        //Vector2 resetPosition;
         private Vector2 acceleration = new Vector2(0f, 3f);
         private float scale;
         Vector2 randomDirection;
@@ -28,12 +29,25 @@ namespace Laboration3.View.ExplosionBang
             this.systemStartPosition = systemStartPosition;
             position = new Vector2(systemStartPosition.X, systemStartPosition.Y);//sätter start positionen
             velocity = randomDirection;
+            //Reset(seed, systemStartPosition);
 
         }
+        //public void Reset(int seed, Vector2 systemStartPosition)
+        //{
+        //    Random rand = new Random(seed);//slumpar ut alla partiklar
+        //    scale = 1f + (float)rand.NextDouble() * 5f;
+        //    randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.10f) * 2f;// denna sätter snabheten på partiklarna!
+        //    randomDirection.Normalize();
+        //    randomDirection = randomDirection * ((float)rand.NextDouble() * 0.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
+        //    this.seed = seed;
+        //    this.systemStartPosition = systemStartPosition;
+        //    position = new Vector2(systemStartPosition.X, systemStartPosition.Y);//sätter start positionen
+        //    velocity = randomDirection;
+        //}
+
         public void Update(float elapsedTimeInSeconds)//updaterar varje frame med en position
         {
             position = position + velocity * elapsedTimeInSeconds;
-            //position += velocity;
             velocity = velocity + acceleration * elapsedTimeInSeconds;
         }
         public void Draw(SpriteBatch spriteBatch, Camera camera, Texture2D texture)//ritar ut texturen med farten och en färg!
