@@ -54,7 +54,7 @@ namespace Laboration3.View.ExplosionBang
         {
             //spriteBatch.Draw(texture, camera.scaleParticles(position.X, position.Y), Color.White);
             //spriteBatch.Draw(texture, camera.convertToVisualCoords(new Vector2(position.X, position.Y)), null, Color.White, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);//denna skalar om mina partiklar!
-            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), camera.scaleSizeTo(texture.Width, scale)*2, SpriteEffects.None, 0f);//denna skalar om mina partiklar!
+            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), null, Color.White, 0f, new Vector2(texture.Width, texture.Height), camera.scaleSizeTo(texture.Width, scale), SpriteEffects.None, 0f);//denna skalar om mina partiklar!
 
             //camera.scaleSizeTo(texture.Width,scale)
         }

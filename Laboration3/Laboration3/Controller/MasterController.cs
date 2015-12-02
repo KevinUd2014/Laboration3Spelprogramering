@@ -13,25 +13,26 @@ namespace Laboration3
     /// </summary>
     public class MasterController : Game
     {
-        Camera camera;
+        private Camera camera;
 
-        SmokeSystem smokeSystem;
-        Explosion explosion;
-        BallView ballview;
-        SoundEffect explosionSound;
-        BallSimulation ballSimulation;
-        float timeElapsed;
+        private SmokeSystem smokeSystem;
+        private Explosion explosion;
+        private BallView ballview;
+        private Texture2D cursorImage;
+        private BallSimulation ballSimulation;
+        private float timeElapsed;
+        private Vector2 cursorPos;
 
         private MouseState oldMouseState;
 
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         public MasterController()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 1080/2;
-            graphics.PreferredBackBufferWidth = 1920/2;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 800;
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -58,16 +59,19 @@ namespace Laboration3
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             camera = new Camera(graphics.GraphicsDevice.Viewport);
+
             Texture2D smokee = Content.Load<Texture2D>("particlesmokee");
             Texture2D spark = Content.Load<Texture2D>("spark");
             Texture2D bangExplosion = Content.Load<Texture2D>("explosion");
             Texture2D masterBall = Content.Load<Texture2D>("master_ball");
+            cursorImage = Content.Load<Texture2D>("Pointer");
             SoundEffect explosionSound = Content.Load<SoundEffect>("firesound");
+
             Vector2 startPosition = new Vector2(0.5f, 0.5f);
             ballSimulation = new BallSimulation();
-            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound);
+            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound, cursorImage);
             smokeSystem = new SmokeSystem(smokee, startPosition, camera);
-            //ballview = new BallView(graphics, ballSimulation, Content, masterBall);
+            ballview = new BallView(graphics, ballSimulation, Content, masterBall);
             // TODO: use this.Content to load your game content here
         }
 
@@ -94,6 +98,8 @@ namespace Laboration3
 
             MouseState newMouseState = Mouse.GetState();
 
+            cursorPos = new Vector2(oldMouseState.X, oldMouseState.Y);
+
             if (newMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
                 Vector2 vec = new Vector2(newMouseState.X, newMouseState.Y);
@@ -112,7 +118,7 @@ namespace Laboration3
 
             //explosion.Update((float)gameTime.ElapsedGameTime.TotalMilliseconds);
 
-           // ballSimulation.update();
+            ballSimulation.updateBallCollision();
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -128,7 +134,7 @@ namespace Laboration3
 
             // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetMatrix());
             spriteBatch.Begin();
-           // ballview.Draw(spriteBatch);
+            ballview.Draw(spriteBatch);
             explosion.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
 
             spriteBatch.End();

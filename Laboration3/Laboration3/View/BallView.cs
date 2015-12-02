@@ -14,11 +14,11 @@ namespace Laboration3.View
         Texture2D box;
         private Camera camera;
         private BallSimulation ballSimulation;
-        Texture2D ball;
+        Texture2D ballTexture;
 
         public BallView(GraphicsDeviceManager graphics, BallSimulation BallSimulation, ContentManager Content, Texture2D Ball)/// en konstruktor som laddar in först i klassen!
         {
-            ball = Ball;///laddar in bollen //detta görs bara en gång!
+            ballTexture = Ball;///laddar in bollen //detta görs bara en gång!
 
             box = new Texture2D(graphics.GraphicsDevice, 1, 1);///denna skapar en box
             box.SetData<Color>(new Color[]
@@ -32,22 +32,26 @@ namespace Laboration3.View
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(box,
-                Vector2.One * 5,
+                spriteBatch.Draw(box,
+                //Vector2.One * 5,
+                //null, Color.White,
+                //0f,
+                //Vector2.Zero,
+                camera.GetGameWindow(), Color.Black);
+            //SpriteEffects.None,
+            //0f);/// ritar ut boxen eller snarare kvadraten!
+
+            foreach (Ball ball in ballSimulation.ballList)
+            {
+                spriteBatch.Draw(ballTexture,
+                camera.returnPositionOfField(ball.position.X, ball.position.Y),
                 null, Color.White,
                 0f,
-                Vector2.Zero,
-                camera.scaleSizeTo(box.Width, 90f),
+                new Vector2(ballTexture.Width, ballTexture.Height),
+                camera.scaleSizeTo(ballTexture.Width, 20f),//, ballSimulation.ball.getRadius*2
                 SpriteEffects.None,
-                0f);/// ritar ut boxen eller snarare kvadraten!
-                spriteBatch.Draw(ball,
-                ballSimulation.ball.position,
-                null, Color.White,
-                0f,
-                new Vector2(ball.Width / 2, ball.Height / 2),
-                camera.scaleSizeTo(ball.Width, ballSimulation.ball.getRadius * 2f),
-                SpriteEffects.None,
-                0f);/// denna skalar om bollen så att den passar i min skärm
+                0f);// denna skalar om bollen så att den passar i min skärm
+            }
         }
     }
 }

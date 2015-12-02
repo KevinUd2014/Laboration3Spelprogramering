@@ -40,12 +40,12 @@ namespace Laboration3.View.ExplosionBang
             }
         }
 
-        public void reset()
-        {
-            for (int i = 0; i < maxParticles; i++)
-            {
-                particles[i] = new Particle(i, _systemModelStartPosition);
-            }
-        }
+        //public void reset()
+        //{
+        //    for (int i = 0; i < maxParticles; i++)
+        //    {
+        //        particles[i] = new Particle(i, _systemModelStartPosition);
+        //    }
+        //}
     }
 }

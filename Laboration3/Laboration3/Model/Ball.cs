@@ -12,10 +12,10 @@ namespace Laboration3.Model
         private Vector2 velocity = new Vector2(1f, 1f);
         private float radius = 5f;
 
-        public Ball()
+        public Ball(int seed)
         {
-            Random r = new Random();// gör så att mönstret slumpas ut
-            velocity = (new Vector2((float)r.Next(100) / 100f, (float)r.Next(100) / 100f) * 2f - Vector2.One);// denna uträkning tillhör det!
+            Random r = new Random(seed);// gör så att mönstret slumpas ut
+            velocity = (new Vector2(r.Next(100) / 100f, r.Next(100) / 100f) * 2f - Vector2.One);// denna uträkning tillhör det!
             velocity.Normalize();///https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.vector2.normalize.aspx // för att mönstret ska fortsätta i sammma linje!
             //velocity *= 0.008f; // denna ändrar hastigheten!
             position = new Vector2(50f, 50f);
