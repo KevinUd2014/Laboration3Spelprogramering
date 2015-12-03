@@ -11,6 +11,7 @@ namespace Laboration3.Model
         public Vector2 position;
         private Vector2 velocity = new Vector2(1f, 1f);
         private float radius = 5f;
+        bool deadBall = false;
 
         public Ball(int seed)
         {
@@ -19,6 +20,21 @@ namespace Laboration3.Model
             velocity.Normalize();///https://msdn.microsoft.com/en-us/library/microsoft.xna.framework.vector2.normalize.aspx // för att mönstret ska fortsätta i sammma linje!
             //velocity *= 0.008f; // denna ändrar hastigheten!
             position = new Vector2(50f, 50f);
+        }
+        public bool isBallDead
+        {
+            get
+            {
+                return deadBall;
+            }
+            set
+            {
+                deadBall = value;
+            }
+        }
+        public void setNewPosition(float time)
+        {
+            position += velocity * time;
         }
         //public Vector2 newPosition
         //{

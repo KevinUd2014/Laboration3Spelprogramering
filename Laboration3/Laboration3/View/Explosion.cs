@@ -1,4 +1,5 @@
-﻿using Laboration3.View.ExplosionBang;
+﻿using Laboration3.Model;
+using Laboration3.View.ExplosionBang;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,8 @@ namespace Laboration3.View
         Vector2 cursorPos;
         Camera camera;
         private float radius = 10f;
+
+        private float crosshairSize = 0.1f;
         //Vector2 CursorPosition;
 
 
@@ -82,31 +85,29 @@ namespace Laboration3.View
             explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition, soundEffect));
             explosionManager.PlayExplosionSound();
         }
-
-        public void Draw(float totalSeconds)
+        public void Draw(float totalSeconds, SpriteBatch spriteBatch)
         {
             timeElapsed += totalSeconds;
-
             spriteBatch.Draw(cursorImage,
                 cursorPos,
                 null, Color.White,
                 0f,
                 new Vector2(cursorImage.Width / 2, cursorImage.Height / 2),//denna sätter ut cirkeln!
-                camera.scaleSizeTo(Width, radius*4),
+                camera.scaleSizeTo(Width, radius * 4),
                 SpriteEffects.None,
                 0f);//denna håller koll på muspekarbilden!
 
             foreach (ParticleSystem Particle in particleSpark)
-            {       
+            {
                 particleSystem.Draw(spriteBatch, camera, particle);
             }//280
             foreach (SmokeSystem smokeSystem in smokes)
             {
                 smokeSystem.Draw(spriteBatch);
             }
+            
             explosionManager.Draw(totalSeconds);
-
-            //explosionManager.Draw(totalSeconds);
+            
         }
     }
 }

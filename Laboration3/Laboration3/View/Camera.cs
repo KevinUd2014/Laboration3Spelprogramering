@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,7 @@ namespace Laboration3.View
         {
             return size / rawsize;//när man har matrix
         }
+        
         //public float scaleSizeToForBall(float rawsize, float size)
         //{
         //    float normalized = width / rawsize;

@@ -112,7 +112,7 @@ namespace Laboration3
 
             if (timeElapsed <= (float)smokeSystem.maxLife / (float)smokeSystem.maxParticleCount)
             {
-                explosion.Update(timeElapsed*1000);
+                explosion.Update(timeElapsed * 1000);
                 timeElapsed = 0;
             }
 
@@ -135,7 +135,7 @@ namespace Laboration3
             // spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, camera.GetMatrix());
             spriteBatch.Begin();
             ballview.Draw(spriteBatch);
-            explosion.Draw((float)gameTime.ElapsedGameTime.TotalSeconds);
+            explosion.Draw((float)gameTime.ElapsedGameTime.TotalSeconds, spriteBatch);
 
             spriteBatch.End();
 
