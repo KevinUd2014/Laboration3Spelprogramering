@@ -39,8 +39,8 @@ namespace Laboration3.View
 
         public Vector2 convertToLogicalCoords(float x, float y)
         { 
-            float logicalX = x / graphics.Width;
-            float logicalY = y / graphics.Height;
+            float logicalX = x / graphics.Width * size;
+            float logicalY = y / graphics.Height * size;
 
             return new Vector2(logicalX, logicalY);
         }
@@ -57,8 +57,8 @@ namespace Laboration3.View
         }
         public Vector2 convertToVisualCoords(Vector2 coordinates)
         {
-            float visualX = coordinates.X * graphics.Width;
-            float visualY = coordinates.Y * graphics.Height;
+            float visualX = border + coordinates.X * scale;
+            float visualY = border + coordinates.Y * scale;
 
             return new Vector2(visualX, visualY);
         }

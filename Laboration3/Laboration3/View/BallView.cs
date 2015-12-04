@@ -22,7 +22,7 @@ namespace Laboration3.View
             ballTexture = Ball;///laddar in bollen //detta görs bara en gång!
             this.deadBall = deadBall;
             box = new Texture2D(graphics.GraphicsDevice, 1, 1);///denna skapar en box
-            box.SetData<Color>(new Color[]
+            box.SetData(new Color[]
             {
                 Color.Black
             });/// denna sätter vilken färg!
@@ -42,7 +42,7 @@ namespace Laboration3.View
             //SpriteEffects.None,
             //0f);/// ritar ut boxen eller snarare kvadraten!
 
-            foreach (Ball ball in ballSimulation.ballList)
+            foreach (Ball ball in ballSimulation.getBalls())
             {
                 if (ball.isBallDead == false)
                 {
@@ -59,7 +59,7 @@ namespace Laboration3.View
                 {
                     spriteBatch.Draw(deadBall,
                     camera.returnPositionOfField(ball.position.X, ball.position.Y),
-                    null, Color.Black,
+                    null, Color.White,
                     0f,
                     new Vector2(deadBall.Width, deadBall.Height) / 2,
                     camera.scaleSizeTo(deadBall.Width, ball.getRadius * 2),//, ballSimulation.ball.getRadius*2

@@ -77,7 +77,7 @@ namespace Laboration3.View.ExplosionBang
         }
         private void resetParticle(Smoke particle, Camera camera, Vector2 StartPosition)// denna kommer reseta allt
         {
-            float speed = (float)r.NextDouble() * 0.05f;//farten på partiklarna
+            float speed = (float)r.NextDouble() * 7f;//farten på partiklarna
             Vector2 velocity = new Vector2((float)r.NextDouble() * 2f - 1f, (float)r.NextDouble() * 2f - 1f);
             startPosition = StartPosition;
             velocity.Normalize();

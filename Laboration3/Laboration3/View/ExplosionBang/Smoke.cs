@@ -15,7 +15,7 @@ namespace Laboration3.View.ExplosionBang
         public float rotationSpeed;
         public float age;
         public float scale = 0.2f;
-        private const float maxSize = 10f;
+        private const float maxSize = 20f;
         private float size = 0f;
         private float maxLife;
 
@@ -26,7 +26,7 @@ namespace Laboration3.View.ExplosionBang
 
         public void Update(float gameTime)
         {
-            velocity += new Vector2(0, -0.001f);//new Vector2(0, -0.01f);
+            velocity += new Vector2(0, -0.2f);//new Vector2(0, -0.01f);
             position += velocity*gameTime/1000;//*gameTime / 500;
             rotation += rotationSpeed;
             scale = 0.2f + ((age * 2f) / maxLife) * 0.8f;

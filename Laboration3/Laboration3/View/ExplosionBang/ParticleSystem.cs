@@ -10,7 +10,7 @@ namespace Laboration3.View.ExplosionBang
     class ParticleSystem
     {
         private Particle[] particles;
-        private const int maxParticles = 100;
+        private const int maxParticles = 20;
         Vector2 _systemModelStartPosition;
 
         public ParticleSystem(Vector2 systemModelStartPosition)

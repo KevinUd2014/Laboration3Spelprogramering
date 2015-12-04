@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Laboration3.Model
     class BallSimulation
     {
         //public Ball ball;
-        public List<Ball> ballList = new List<Ball>();
+        private List<Ball> ballList = new List<Ball>();
         //private List<Ball> newlyKilledBall;
         int maxBalls = 10;
 
@@ -35,11 +36,11 @@ namespace Laboration3.Model
             foreach (Ball ball in ballList)
             {
                 ball.position += ball.getVelocity;
-                if (ball.position.X + ball.getRadius > 100 || ball.position.X - ball.getRadius < 0)//från mitten av bollen + radien på bollen så att bollen nuddar kant med kant!
+                if (ball.position.X + ball.getRadius > 100 || ball.position.X - ball.getRadius < 1)//från mitten av bollen + radien på bollen så att bollen nuddar kant med kant!
                 {
                     ball.setVelocityX();
                 }
-                if (ball.position.Y + ball.getRadius > 100 || ball.position.Y - ball.getRadius < 0)//denna fungerar inte om man gör bollen större i BallView
+                if (ball.position.Y + ball.getRadius > 100 || ball.position.Y - ball.getRadius < 1)//denna fungerar inte om man gör bollen större i BallView
                 {
                     ball.setVelocityY();
                 }
@@ -50,12 +51,10 @@ namespace Laboration3.Model
             //newlyKilledBall = new List<Ball>();
             foreach (Ball ball in ballList)
             {
+                float distance = (ball.position - new Vector2(X, Y)).Length();
                 if (!ball.isBallDead)
                 {
-                    if (ball.position.X + ball.getRadius > X - crosshairSize &&
-                        ball.position.X - ball.getRadius < X + crosshairSize &&
-                        ball.position.Y + ball.getRadius > Y - crosshairSize &&
-                        ball.position.Y - ball.getRadius < Y + crosshairSize)
+                    if (distance < crosshairSize + ball.getRadius)
                     {
                         //newlyKilledBall.Add(ball);
                         ball.isBallDead = true;
@@ -63,12 +62,6 @@ namespace Laboration3.Model
                 }
             }
         }
-
-        //public List<Ball> RecentlyKilledBalls
-        //{
-        //    get { return newlyKilledBall; }
-        //}
-
         public List<Ball> getBalls()
         {
             return ballList;

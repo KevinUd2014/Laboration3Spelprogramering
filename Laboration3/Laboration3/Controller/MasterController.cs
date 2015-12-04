@@ -64,13 +64,13 @@ namespace Laboration3
             Texture2D spark = Content.Load<Texture2D>("spark");
             Texture2D bangExplosion = Content.Load<Texture2D>("explosion");
             Texture2D masterBall = Content.Load<Texture2D>("master_ball");
-            Texture2D masterBallDead = Content.Load<Texture2D>("master_ball_dead");
+            Texture2D masterBallDead = Content.Load<Texture2D>("master_ball_dead2");
             cursorImage = Content.Load<Texture2D>("Pointer");
             SoundEffect explosionSound = Content.Load<SoundEffect>("firesound");
 
             Vector2 startPosition = new Vector2(0.5f, 0.5f);
             ballSimulation = new BallSimulation();
-            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound, cursorImage);
+            explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound, cursorImage, ballSimulation);
             smokeSystem = new SmokeSystem(smokee, startPosition, camera);
             ballview = new BallView(graphics, ballSimulation, Content, masterBall, masterBallDead);
             // TODO: use this.Content to load your game content here

@@ -22,8 +22,6 @@ namespace Laboration3.View
         //Texture2D masterBallDead;
         Camera camera;
         private float radius = 10f;
-
-        private float crosshairSize = 100f;
         //Vector2 CursorPosition;
 
 
@@ -45,7 +43,7 @@ namespace Laboration3.View
         //BallView ballview;
 
 
-        public Explosion(SpriteBatch spritebatch, Texture2D Particle, Camera Camera, Texture2D Smoke, Texture2D BangExplosion, SoundEffect explosionSound, Texture2D CursorImage)
+        public Explosion(SpriteBatch spritebatch, Texture2D Particle, Camera Camera, Texture2D Smoke, Texture2D BangExplosion, SoundEffect explosionSound, Texture2D CursorImage, BallSimulation bs)
         {
             timeElapsed = 0; //denna ska vara 0 när programmet startas
                              //ballview = Ballview;
@@ -66,7 +64,7 @@ namespace Laboration3.View
             particleSystem = new ParticleSystem(startposition);
             smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
             explosionManager = new ExplosionManager(spriteBatch, BangExplosion, camera, startposition);
-            ballSimulation = new BallSimulation();
+            ballSimulation = bs;
         }
 
         public void Update(float totalseconds)
@@ -88,7 +86,7 @@ namespace Laboration3.View
             
             if (logicalMousePosition.X <= 100f && logicalMousePosition.X >= 0f && logicalMousePosition.Y <= 100f && logicalMousePosition.Y >= 0f)
             {
-                ballSimulation.setDeadBalls(logicalMousePosition.X*100, logicalMousePosition.Y*100, crosshairSize / 2);//om jag sätter *100 här så får musen rätt position!
+                ballSimulation.setDeadBalls(logicalMousePosition.X, logicalMousePosition.Y, radius);//om jag sätter *100 här så får musen rätt position!
                 particleSpark.Add(particleSystem = new ParticleSystem(logicalMousePosition));
                 smokes.Add(smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera));//får inte denna att fungera
                 explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition));

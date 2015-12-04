@@ -14,10 +14,10 @@ namespace Laboration3.View.ExplosionBang
         private Vector2 position;
         private Vector2 velocity;
         //Vector2 resetPosition;
-        private Vector2 acceleration = new Vector2(0f, 3f);
+        private Vector2 acceleration = new Vector2(0f, 100f);
         private float scale;
         Vector2 randomDirection;
-        private float size = 2.5f;
+        private float size = 5f;
 
         public Particle(int seed, Vector2 systemStartPosition)
         {
@@ -25,7 +25,7 @@ namespace Laboration3.View.ExplosionBang
             scale = (float)rand.NextDouble();
             randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.10f) * 2f;// denna sätter snabheten på partiklarna!
             randomDirection.Normalize();
-            randomDirection = randomDirection * ((float)rand.NextDouble() * 0.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
+            randomDirection = randomDirection * ((float)rand.NextDouble() * 30f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
             this.seed = seed;
             this.systemStartPosition = systemStartPosition;
             position = new Vector2(systemStartPosition.X, systemStartPosition.Y);//sätter start positionen
