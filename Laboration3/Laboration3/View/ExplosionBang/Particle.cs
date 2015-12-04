@@ -17,11 +17,12 @@ namespace Laboration3.View.ExplosionBang
         private Vector2 acceleration = new Vector2(0f, 3f);
         private float scale;
         Vector2 randomDirection;
+        private float size = 5f;
 
         public Particle(int seed, Vector2 systemStartPosition)
         {
             Random rand = new Random(seed);//slumpar ut alla partiklar
-            scale = 1f + (float)rand.NextDouble() * 5f;
+            scale = (float)rand.NextDouble();
             randomDirection = new Vector2((float)rand.NextDouble() - 0.5f, (float)rand.NextDouble() - 0.10f) * 2f;// denna sätter snabheten på partiklarna!
             randomDirection.Normalize();
             randomDirection = randomDirection * ((float)rand.NextDouble() * 0.5f);// denna sätter vilken spridning partiklarna får 2f är ganska bra!
@@ -54,7 +55,13 @@ namespace Laboration3.View.ExplosionBang
         {
             //spriteBatch.Draw(texture, camera.scaleParticles(position.X, position.Y), Color.White);
             //spriteBatch.Draw(texture, camera.convertToVisualCoords(new Vector2(position.X, position.Y)), null, Color.White, 0f, Vector2.Zero, 0.1f, SpriteEffects.None, 0f);//denna skalar om mina partiklar!
-            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), null, Color.White, 0f, new Vector2(texture.Width, texture.Height), camera.scaleSizeTo(texture.Width, scale), SpriteEffects.None, 0f);//denna skalar om mina partiklar!
+            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), 
+                null, 
+                Color.White, 
+                0f, 
+                new Vector2(texture.Width, texture.Height)/2, camera.scaleSizeTo(texture.Width, scale*size), 
+                SpriteEffects.None, 
+                0f);//denna skalar om mina partiklar!
 
             //camera.scaleSizeTo(texture.Width,scale)
         }

@@ -65,15 +65,8 @@ namespace Laboration3.View
 
         public float scaleSizeTo(float rawsize, float size)
         {
-            return size / rawsize;//när man har matrix
+            return size / rawsize * scale;//när man har matrix
         }
-        
-        //public float scaleSizeToForBall(float rawsize, float size)
-        //{
-        //    float normalized = width / rawsize;
-        //    return normalized / size;
-        //}
-
         //internal Matrix? GetMatrix()
         //{
         //    //En matris är en beskrivning utav rotation, position och skala. Du kan multiplicera vectorer med matriser och få

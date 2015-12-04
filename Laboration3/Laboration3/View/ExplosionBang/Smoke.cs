@@ -15,6 +15,7 @@ namespace Laboration3.View.ExplosionBang
         public float rotationSpeed;
         public float age;
         public float scale;
+        private float size = 10f;
 
         public void Update(float gameTime)
         {
@@ -26,14 +27,25 @@ namespace Laboration3.View.ExplosionBang
 
         public void Draw(SpriteBatch sb, Texture2D texture, float maxAge, Camera camera)
         {
+
+            //sb.Draw(texture, 
+            //    camera.convertToVisualCoords(position),
+            //    null,
+            //    Color.White,
+            //    0f,
+            //    new Vector2(texture.Width, texture.Height) / 2, 
+            //    camera.scaleSizeTo(texture.Width, scale * size),
+            //    SpriteEffects.None,
+            //    0f);
+
             sb.Draw(texture,
                 camera.convertToVisualCoords(position),
                 null,
                 null,
                 new Vector2(texture.Width / 2f, texture.Height / 2f),
                 rotation,
-                Vector2.One * scale * (age / maxAge)*2,//storleken på smoke är *3
-                Color.White * (1 - (age / maxAge)),
+                camera.scaleSizeTo(texture.Width, size),//storleken på smoke är *3
+                Color.White,
                 SpriteEffects.None,
                 0);
         }

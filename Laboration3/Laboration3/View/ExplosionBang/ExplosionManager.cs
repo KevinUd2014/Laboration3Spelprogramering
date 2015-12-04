@@ -30,6 +30,7 @@ namespace Laboration3.View.ExplosionBang
         public float timeElapsed;
         public float maxTimer = 0.5f;
         float percentAnimated;
+        private float size = 20f;
 
         public int setFPS = 60;// tagen från uppgiftens sida!
         public int posFramesX = 4;
@@ -75,7 +76,7 @@ namespace Laboration3.View.ExplosionBang
 
             Rectangle rect = new Rectangle(frameWidth * frameX, frameHeight * frameY, frameWidth, frameHeight);// denna sätter storleken på hela bilden!
             
-            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), rect, Color.White, 0, new Vector2(frameWidth / 2, frameHeight / 2), camera.scaleSizeTo(frameWidth, 60f*2), SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, camera.convertToVisualCoords(position), rect, Color.White, 0, new Vector2(frameWidth / 2, frameHeight / 2), camera.scaleSizeTo(frameWidth, size), SpriteEffects.None, 0);
             
         }
     }

@@ -47,8 +47,8 @@ namespace Laboration3.View
                 camera.returnPositionOfField(ball.position.X, ball.position.Y),
                 null, Color.White,
                 0f,
-                new Vector2(ballTexture.Width, ballTexture.Height),
-                camera.scaleSizeTo(ballTexture.Width, 20f),//, ballSimulation.ball.getRadius*2
+                new Vector2(ballTexture.Width, ballTexture.Height) / 2,
+                camera.scaleSizeTo(ballTexture.Width, ball.getRadius),//, ballSimulation.ball.getRadius*2
                 SpriteEffects.None,
                 0f);// denna skalar om bollen så att den passar i min skärm
             }

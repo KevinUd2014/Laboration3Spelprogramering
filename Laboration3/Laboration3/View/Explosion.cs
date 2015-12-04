@@ -35,6 +35,7 @@ namespace Laboration3.View
 
         Vector2 startposition = new Vector2(1f, 1f);// hela planen är just nu 100*100// så denna börjar i mitten 50*50
         ParticleSystem particleSystem;
+        BallSimulation ballSimulation;
         SmokeSystem smokeSystem;
         ExplosionManager explosionManager;
         List<ExplosionManager> explosions = new List<ExplosionManager>();
@@ -64,6 +65,7 @@ namespace Laboration3.View
             particleSystem = new ParticleSystem(startposition);
             smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
             explosionManager = new ExplosionManager(spriteBatch, BangExplosion, camera, startposition, soundEffect);
+            ballSimulation = new BallSimulation();
         }
 
         public void Update(float totalseconds)
@@ -72,7 +74,10 @@ namespace Laboration3.View
             {
                 smokeSystem.Update(totalseconds);
             }
-            particleSystem.Update(totalseconds / 1000);
+            foreach (ParticleSystem Particle in particleSpark)
+            {
+                Particle.Update(totalseconds/1000);
+            }//280
             MouseState mouseState = Mouse.GetState();
             cursorPos = new Vector2(mouseState.X, mouseState.Y);
         }
@@ -80,11 +85,35 @@ namespace Laboration3.View
         {
             Vector2 logicalMousePosition = camera.convertToLogicalCoords(mousePosition.X, mousePosition.Y);
 
-            particleSpark.Add(particleSystem = new ParticleSystem(logicalMousePosition));
-            smokes.Add(smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera));//får inte denna att fungera
-            explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition, soundEffect));
+            
+
+            if (logicalMousePosition.X <= 1f && logicalMousePosition.X >= 0f && logicalMousePosition.Y <= 1f && logicalMousePosition.Y >= 0f)
+            {
+                ballSimulation.setDeadBalls(logicalMousePosition.X, logicalMousePosition.Y, crosshairSize / 2);
+                particleSpark.Add(particleSystem = new ParticleSystem(logicalMousePosition));
+                smokes.Add(smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera));//får inte denna att fungera
+                explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition, soundEffect));
+                foreach (Ball ball in ballSimulation.RecentlyKilledBalls)
+                {
+                    smokes.Add(new SmokeSystem(smoke, ball.position, camera));
+                }
+            }
             explosionManager.PlayExplosionSound();
         }
+        //public void NewExplosion(float mCoordX, float mCoordY, SpriteBatch spriteBatch)
+        //{
+        //    Vector2 logicalMousePosition = camera.convertToLogicalCoords(new Vector2(mCoordX, mCoordY));
+        //    if (logicalLocation.X <= 1f && logicalLocation.X >= 0f && logicalLocation.Y <= 1f && logicalLocation.Y >= 0f)
+        //    {
+        //        //fireSound.Play(0.1f, 0, 0);
+        //        //explosions.Add(new ExplosionView(_camera, spriteBatch, logicalLocation, 0.5f, splitterTexture, splitterSecondTexture, smokeTexture, explosionTexture, shockwaveTexture));
+        //        ballSimulation.setDeadBalls(logicalLocation.X, logicalLocation.Y, crosshairSize / 2);
+        //        foreach (Ball ball in _ballSimulation.RecentlyKilledBalls)
+        //        {
+        //            smokes.Add(new SmokeSystem(smokeTexture, 0.5f, ball.position, true));
+        //        }
+        //    }
+        //}
         public void Draw(float totalSeconds, SpriteBatch spriteBatch)
         {
             timeElapsed += totalSeconds;
@@ -93,20 +122,24 @@ namespace Laboration3.View
                 null, Color.White,
                 0f,
                 new Vector2(cursorImage.Width / 2, cursorImage.Height / 2),//denna sätter ut cirkeln!
-                camera.scaleSizeTo(Width, radius * 4),
+                camera.scaleSizeTo(cursorImage.Width, radius * 2),
                 SpriteEffects.None,
                 0f);//denna håller koll på muspekarbilden!
 
             foreach (ParticleSystem Particle in particleSpark)
             {
-                particleSystem.Draw(spriteBatch, camera, particle);
+                Particle.Draw(spriteBatch, camera, particle);
             }//280
             foreach (SmokeSystem smokeSystem in smokes)
             {
                 smokeSystem.Draw(spriteBatch);
             }
-            
-            explosionManager.Draw(totalSeconds);
+            foreach (ExplosionManager explosion in explosions)
+            {
+                explosion.Draw(totalSeconds);
+            }
+
+            //explosionManager.Draw(totalSeconds);
             
         }
     }
