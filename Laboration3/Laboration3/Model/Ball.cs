@@ -10,7 +10,7 @@ namespace Laboration3.Model
     {
         public Vector2 position;
         private Vector2 velocity = new Vector2(1f, 1f);
-        private float radius = 5f;
+        private float radius = 2.5f;
         bool deadBall = false;
 
         public Ball(int seed)

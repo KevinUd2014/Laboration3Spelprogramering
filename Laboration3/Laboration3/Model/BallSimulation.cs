@@ -9,7 +9,7 @@ namespace Laboration3.Model
     {
         //public Ball ball;
         public List<Ball> ballList = new List<Ball>();
-        private List<Ball> newlyKilledBall;
+        //private List<Ball> newlyKilledBall;
         int maxBalls = 10;
 
         public BallSimulation()
@@ -47,7 +47,7 @@ namespace Laboration3.Model
         }
         public void setDeadBalls(float X, float Y, float crosshairSize)
         {
-            newlyKilledBall = new List<Ball>();
+            //newlyKilledBall = new List<Ball>();
             foreach (Ball ball in ballList)
             {
                 if (!ball.isBallDead)
@@ -57,17 +57,17 @@ namespace Laboration3.Model
                         ball.position.Y + ball.getRadius > Y - crosshairSize &&
                         ball.position.Y - ball.getRadius < Y + crosshairSize)
                     {
-                        newlyKilledBall.Add(ball);
+                        //newlyKilledBall.Add(ball);
                         ball.isBallDead = true;
                     }
                 }
             }
         }
 
-        public List<Ball> RecentlyKilledBalls
-        {
-            get { return newlyKilledBall; }
-        }
+        //public List<Ball> RecentlyKilledBalls
+        //{
+        //    get { return newlyKilledBall; }
+        //}
 
         public List<Ball> getBalls()
         {

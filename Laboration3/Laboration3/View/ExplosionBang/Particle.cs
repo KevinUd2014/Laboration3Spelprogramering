@@ -17,7 +17,7 @@ namespace Laboration3.View.ExplosionBang
         private Vector2 acceleration = new Vector2(0f, 3f);
         private float scale;
         Vector2 randomDirection;
-        private float size = 5f;
+        private float size = 2.5f;
 
         public Particle(int seed, Vector2 systemStartPosition)
         {

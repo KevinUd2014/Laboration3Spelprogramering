@@ -16,8 +16,8 @@ namespace Laboration3.View.ExplosionBang
 
         private Vector2 systemStartPosition;
         private Vector2 position;
-        SoundEffect soundEffect;
-        List<SoundEffectInstance> soundEffectInstances = new List<SoundEffectInstance>();
+        //SoundEffect soundEffect;
+        //List<SoundEffectInstance> soundEffectInstances = new List<SoundEffectInstance>();
 
         public int Width;
         public int Height;
@@ -36,10 +36,10 @@ namespace Laboration3.View.ExplosionBang
         public int posFramesX = 4;
         public int posFramesY = 8;
 
-        public ExplosionManager(SpriteBatch spritebatch, Texture2D Texture, Camera Camera, Vector2 SystemStartPosition, SoundEffect explosionSound)
+        public ExplosionManager(SpriteBatch spritebatch, Texture2D Texture, Camera Camera, Vector2 SystemStartPosition)
         {
             timeElapsed = 0; //denna ska vara 0 när programmet startas
-            soundEffect = explosionSound;
+            
             camera = Camera;//så jag kan använda kameran i klassen!
             spriteBatch = spritebatch;
             texture = Texture;
@@ -50,17 +50,17 @@ namespace Laboration3.View.ExplosionBang
             Width = texture.Width / posFramesX; //delar explosionens bredd med positions framesen!
             Height = texture.Height / posFramesY;
         }
-        public void PlayExplosionSound()
-        {
+        //public void PlayExplosionSound()
+        //{
 
-            soundEffectInstances.Add(soundEffect.CreateInstance());
+        //    soundEffectInstances.Add(soundEffect.CreateInstance());
 
-            foreach (SoundEffectInstance soundInstances in soundEffectInstances)
-            {
-                soundInstances.Play();
-            }
-            soundEffectInstances.Clear();
-        }
+        //    foreach (SoundEffectInstance soundInstances in soundEffectInstances)
+        //    {
+        //        soundInstances.Play();
+        //    }
+        //    soundEffectInstances.Clear();
+        //}
 
         public void Draw(float totalSeconds)
         {

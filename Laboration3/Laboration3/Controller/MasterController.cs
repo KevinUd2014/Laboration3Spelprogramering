@@ -64,6 +64,7 @@ namespace Laboration3
             Texture2D spark = Content.Load<Texture2D>("spark");
             Texture2D bangExplosion = Content.Load<Texture2D>("explosion");
             Texture2D masterBall = Content.Load<Texture2D>("master_ball");
+            Texture2D masterBallDead = Content.Load<Texture2D>("master_ball_dead");
             cursorImage = Content.Load<Texture2D>("Pointer");
             SoundEffect explosionSound = Content.Load<SoundEffect>("firesound");
 
@@ -71,7 +72,7 @@ namespace Laboration3
             ballSimulation = new BallSimulation();
             explosion = new Explosion(spriteBatch, spark, camera, smokee, bangExplosion, explosionSound, cursorImage);
             smokeSystem = new SmokeSystem(smokee, startPosition, camera);
-            ballview = new BallView(graphics, ballSimulation, Content, masterBall);
+            ballview = new BallView(graphics, ballSimulation, Content, masterBall, masterBallDead);
             // TODO: use this.Content to load your game content here
         }
 
@@ -110,7 +111,7 @@ namespace Laboration3
 
             //timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (timeElapsed <= (float)smokeSystem.maxLife / (float)smokeSystem.maxParticleCount)
+            if (timeElapsed <= (float)smokeSystem.maxParticleLife / (float)smokeSystem.maxParticleCount)
             {
                 explosion.Update(timeElapsed * 1000);
                 timeElapsed = 0;

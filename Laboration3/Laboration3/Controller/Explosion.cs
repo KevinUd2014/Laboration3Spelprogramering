@@ -19,10 +19,11 @@ namespace Laboration3.View
         Texture2D bangExplosion;
         Texture2D cursorImage;
         Vector2 cursorPos;
+        //Texture2D masterBallDead;
         Camera camera;
         private float radius = 10f;
 
-        private float crosshairSize = 0.1f;
+        private float crosshairSize = 100f;
         //Vector2 CursorPosition;
 
 
@@ -48,7 +49,7 @@ namespace Laboration3.View
         {
             timeElapsed = 0; //denna ska vara 0 när programmet startas
                              //ballview = Ballview;
-
+            //this.masterBallDead = masterBallDead;
             cursorImage = CursorImage;
             //cursorPos = CursorPosition;
 
@@ -64,7 +65,7 @@ namespace Laboration3.View
 
             particleSystem = new ParticleSystem(startposition);
             smokeSystem = new SmokeSystem(smoke, startposition, camera);//får inte denna att fungera
-            explosionManager = new ExplosionManager(spriteBatch, BangExplosion, camera, startposition, soundEffect);
+            explosionManager = new ExplosionManager(spriteBatch, BangExplosion, camera, startposition);
             ballSimulation = new BallSimulation();
         }
 
@@ -77,43 +78,28 @@ namespace Laboration3.View
             foreach (ParticleSystem Particle in particleSpark)
             {
                 Particle.Update(totalseconds/1000);
-            }//280
+            }
             MouseState mouseState = Mouse.GetState();
             cursorPos = new Vector2(mouseState.X, mouseState.Y);
         }
         public void Click(Vector2 mousePosition)
         {
             Vector2 logicalMousePosition = camera.convertToLogicalCoords(mousePosition.X, mousePosition.Y);
-
             
-
-            if (logicalMousePosition.X <= 1f && logicalMousePosition.X >= 0f && logicalMousePosition.Y <= 1f && logicalMousePosition.Y >= 0f)
+            if (logicalMousePosition.X <= 100f && logicalMousePosition.X >= 0f && logicalMousePosition.Y <= 100f && logicalMousePosition.Y >= 0f)
             {
-                ballSimulation.setDeadBalls(logicalMousePosition.X, logicalMousePosition.Y, crosshairSize / 2);
+                ballSimulation.setDeadBalls(logicalMousePosition.X*100, logicalMousePosition.Y*100, crosshairSize / 2);//om jag sätter *100 här så får musen rätt position!
                 particleSpark.Add(particleSystem = new ParticleSystem(logicalMousePosition));
                 smokes.Add(smokeSystem = new SmokeSystem(smoke, logicalMousePosition, camera));//får inte denna att fungera
-                explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition, soundEffect));
-                foreach (Ball ball in ballSimulation.RecentlyKilledBalls)
-                {
-                    smokes.Add(new SmokeSystem(smoke, ball.position, camera));
-                }
+                explosions.Add(explosionManager = new ExplosionManager(spriteBatch, bangExplosion, camera, logicalMousePosition));
+                //foreach (Ball ball in ballSimulation.RecentlyKilledBalls)
+                //{
+                //    smokes.Add(new SmokeSystem(smoke, ball.position, camera));
+                //}
             }
-            explosionManager.PlayExplosionSound();
+            //explosionManager.PlayExplosionSound();
+            soundEffect.Play();
         }
-        //public void NewExplosion(float mCoordX, float mCoordY, SpriteBatch spriteBatch)
-        //{
-        //    Vector2 logicalMousePosition = camera.convertToLogicalCoords(new Vector2(mCoordX, mCoordY));
-        //    if (logicalLocation.X <= 1f && logicalLocation.X >= 0f && logicalLocation.Y <= 1f && logicalLocation.Y >= 0f)
-        //    {
-        //        //fireSound.Play(0.1f, 0, 0);
-        //        //explosions.Add(new ExplosionView(_camera, spriteBatch, logicalLocation, 0.5f, splitterTexture, splitterSecondTexture, smokeTexture, explosionTexture, shockwaveTexture));
-        //        ballSimulation.setDeadBalls(logicalLocation.X, logicalLocation.Y, crosshairSize / 2);
-        //        foreach (Ball ball in _ballSimulation.RecentlyKilledBalls)
-        //        {
-        //            smokes.Add(new SmokeSystem(smokeTexture, 0.5f, ball.position, true));
-        //        }
-        //    }
-        //}
         public void Draw(float totalSeconds, SpriteBatch spriteBatch)
         {
             timeElapsed += totalSeconds;
